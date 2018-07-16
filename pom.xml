@@ -29,6 +29,7 @@ under the License.
     <relativePath>../../pom/maven/maven-plugins/pom.xml</relativePath>
   </parent>
 
+  <groupId>com.offbytwo.maven.plugins</groupId>
   <artifactId>maven-dependency-plugin</artifactId>
   <version>3.1.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
@@ -41,9 +42,9 @@ under the License.
   </prerequisites>
 
   <scm>
-    <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-dependency-plugin.git</connection>
-    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-dependency-plugin.git</developerConnection>
-    <url>https://github.com/apache/maven-dependency-plugin/tree/${project.scm.tag}</url>
+    <connection>scm:git:https://github.com/cosmin/maven-dependency-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:cosmin/maven-dependency-plugin.git</developerConnection>
+    <url>https://github.com/cosmin/maven-dependency-plugin</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
@@ -447,5 +448,40 @@ under the License.
         </plugins>
       </reporting>
     </profile>
+    <profile>
+      <id>release</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.4</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
+
+  <repositories>
+    <repository>
+      <id>sonatype-oss</id>
+      <url>http://oss.sonatype.org/content/groups/public/</url>
+    </repository>
+  </repositories>
+
 </project>
